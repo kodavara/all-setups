@@ -2,11 +2,6 @@
 #export PATH=$PATH:/usr/local/bin/
 #source .bashrc
 
-apt install unzip -y 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
 #! /bin/bash
 aws configure
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -22,9 +17,8 @@ kops create cluster --name rahams.k8s.local --zones us-east-1a --master-count=1 
 kops update cluster --name rahams.k8s.local --yes --admin
 
 
-# validate cluster: kops validate cluster --wait 10m
-# list nodes: kubectl get nodes --show-labels
-# ssh to the master: ssh -i ~/.ssh/id_rsa ubuntu@api.koda.k8s.local
-# the ubuntu user is specific to Ubuntu. If not using Ubuntu please use the appropriate user based on your OS.
-# read about installing addons at: https://kops.sigs.k8s.io/addons.
+ # list clusters with: kops get cluster
+ # edit this cluster with: kops edit cluster koda.k8s.local
+ # edit your node instance group: kops edit ig --name=koda.k8s.local nodes-us-east-1a
+ # edit your master instance group: kops edit ig --name=koda.k8s.local master-us-east-1a
 
